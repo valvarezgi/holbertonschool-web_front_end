@@ -351,9 +351,11 @@ ul.row {
 .col-1-2 {
   width: 50%;
 }
+
 .row {
   display: flex;
 }
+
 /* Navbar
       ============================= */
 
@@ -411,7 +413,7 @@ ul.row {
   padding: var(--header-padding);
   position: relative;
   z-index: 3;
-  background: transparent !important;
+  background: transparent;
 }
 
 .header-logo {
