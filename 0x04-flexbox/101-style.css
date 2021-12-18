@@ -1,0 +1,57 @@
+:root {
+  --box1: #9bf3f0;
+  --box2: #648de5;
+  --box3: #662c91;
+  --box4: #7e1f86;
+  --box5: #e072a4;
+  --font-box: arial;
+  --font-size-level1: 1rem;
+  --font-size-level2: 2rem;
+  --font-size-level3: 3rem;
+}
+
+.container {
+  display: flex;
+  justify-content: center;
+  align-content: center;
+  align-items: baseline;
+}
+
+.box {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  color: #fff;
+  font-family: var(--font-box);
+  width: 3em;
+  height: 2.5em;
+}
+
+.box1 {
+  background-color: var(--box1);
+  font-size: var(--font-size-level1);
+  width: 3rem;
+  height: 2rem;
+}
+
+.box2 {
+  background-color: var(--box2);
+  font-size: var(--font-size-level2);
+}
+
+.box3 {
+  background-color: var(--box3);
+  font-size: var(--font-size-level3);
+}
+
+.box4 {
+  background-color: var(--box4);
+  font-size: var(--font-size-level2);
+}
+
+.box5 {
+  background-color: var(--box5);
+  font-size: var(--font-size-level1);
+  width: 3rem;
+  height: 2rem;
+}
