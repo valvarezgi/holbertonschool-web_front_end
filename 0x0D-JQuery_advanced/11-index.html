@@ -1,0 +1,79 @@
+<!DOCTYPE html>
+<html lang="en" dir="ltr">
+  <head>
+    <meta charset="utf-8" />
+    <title>Task 11</title>
+
+    <script
+      src="https://code.jquery.com/jquery-3.6.0.min.js"
+      integrity="sha256-/xUj+3OJU5yExlq6GSYGSHk7tPXikynS7ogEvDej/m4="
+      crossorigin="anonymous"
+    ></script>
+    <script type="application/javascript">
+      function addPostRow(data) {
+        $("body").append(
+          "<p><span>Post created with id " +
+            data.id +
+            ", title: " +
+            data.title +
+            ", author: " +
+            data.author +
+            "</span></p>"
+        );
+      }
+      function listPosts() {
+        $.get("http://localhost:3000/posts", function (response) {
+          response.forEach((post) => {
+            addPostRow(post);
+          });
+        }).fail(() => {
+          alert("Server Error");
+        });
+      }
+      function buildForm() {
+        $("body").append("<form>");
+        $("form").append(
+          '<div><label for="author">Author</label><input type="text" id="author"></div>'
+        );
+        $("form").append(
+          '<div><label for="title">Title</label><textarea id="title"></textarea></div>'
+        );
+        $("form").append('<input type="submit">');
+        $("label[for='author']").click(function () {
+          $("#author").select();
+        });
+        $("label[for='title']").click(function () {
+          $("#title").select();
+        });
+        $("form").submit(function (e) {
+          e.preventDefault();
+          sendForm();
+        });
+        $("#title").keypress((e) => {
+          if (e.which === 13) {
+            e.preventDefault();
+            sendForm();
+          }
+        });
+      }
+      function sendForm() {
+        $("form").after("<p>About to send the query to the API</p>");
+        let info = {
+          author: $("#author").val(),
+          title: $("#title").val(),
+        };
+        $.post("http://localhost:3000/posts", info, function (response) {
+          addPostRow(response);
+        }).fail(() => {
+          alert("Error sending the POST query");
+        });
+      }
+      $(document).ready(function () {
+        listPosts();
+        buildForm();
+      });
+    </script>
+  </head>
+
+  <body></body>
+</html>

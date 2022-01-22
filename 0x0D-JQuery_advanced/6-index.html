@@ -1,0 +1,69 @@
+<!DOCTYPE html>
+<html lang="en" dir="ltr">
+  <head>
+    <meta charset="utf-8" />
+    <title>Task 6</title>
+    <script
+      src="https://code.jquery.com/jquery-3.6.0.slim.min.js"
+      integrity="sha256-u7e5khyithlIdTpu22PHhENmPcRdFiHRjhAuHcs05RI="
+      crossorigin="anonymous"
+    ></script>
+    <script type="application/javascript">
+      function createFamilyTree() {
+        $("body").append("<table>");
+        $("table").append("<thead>", "<tbody>");
+        $("thead").append("<tr>");
+        $("thead tr").append("<th>", "<th>");
+        $("th").eq(0).text("Firstname");
+        $("th").eq(1).text("Lastname");
+      }
+
+      function addNewMember(firstName, lastName) {
+        if (position === "before") {
+          $("tbody").prepend("<tr>");
+          $("tbody tr").first().append("<td>", "<td>", "<td>");
+          $("tbody tr:first-child td").eq(0).text(firstName);
+          $("tbody tr:first-child td").eq(1).text(lastName);
+          $("tbody tr:first-child td")
+            .eq(2)
+            .text("(x)")
+            .css({ backgroundColor: "orange", cursor: "pointer" });
+        } else {
+          $("tbody").append("<tr>");
+          $("tbody tr").last().append("<td>", "<td>", "<td>");
+          $("tbody tr:last-child td").eq(0).text(firstName);
+          $("tbody tr:last-child td").eq(1).text(lastName);
+          $("tbody tr:last-child td")
+            .eq(2)
+            .text("(x)")
+            .css({ backgroundColor: "orange", cursor: "pointer" });
+        }
+        $("tbody tr td:last-child").click(function () {
+          $(this).parent().remove();
+        });
+      }
+
+      function createForm() {
+        $("body table").before(
+          '<input type="text">',
+          '<input type="text">',
+          '<select name="selector"><option value="before">Before</option><option value="after">After</option></select>',
+          '<input type="submit">'
+        );
+        $("input:submit").click(function () {
+          addNewMember(
+            $("input").first().val(),
+            $("input:nth-of-type(2)").val(),
+            $("select").val()
+          );
+        });
+      }
+      $(document).ready(function () {
+        createFamilyTree();
+        createForm();
+      });
+    </script>
+  </head>
+
+  <body></body>
+</html>
