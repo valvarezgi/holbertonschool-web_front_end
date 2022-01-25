@@ -1,0 +1,73 @@
+<!DOCTYPE html>
+<html lang="en" dir="ltr">
+  <head>
+    <meta charset="utf-8" />
+    <title>Task 4</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <script src="https://cdn.jsdelivr.net/npm/js-cookie@3.0.1/dist/js.cookie.min.js"></script>
+    <script src="src/index.js"></script>
+    <script>
+      const setCookiesAndShowWelcomeMessage = () => {
+        let firstName = document.getElementById("firstname").value;
+        let email = document.getElementById("email").value;
+        Cookies.set("firstname", firstName, { expires: 10 });
+        Cookies.set("email", email, { expires: 10 });
+        showWelcomeMessageOrForm();
+      };
+      const showCookies = () => {
+        const cookiePara = document.createElement("p");
+        cookiePara.innerHTML =
+          "Email: " +
+          Cookies.get("email") +
+          " - Firstname: " +
+          Cookies.get("firstname");
+        document.body.append(cookiePara);
+      };
+      const showForm = () => {
+        if (document.getElementById("welcome-message")) {
+          document.getElementById("welcome-message").remove();
+        }
+        document.getElementById("login-form").style.display = "block";
+      };
+      const hideForm = () =>
+        (document.getElementById("login-form").style.display = "none");
+      const deleteCookiesAndShowForm = () => {
+        Cookies.remove("email");
+        Cookies.remove("firstname");
+        showForm();
+      };
+      const showWelcomeMessageOrForm = () => {
+        let firstname = Cookies.get("firstname");
+        let email = Cookies.get("email");
+        if (email === undefined || firstname === undefined) showForm();
+        else {
+          hideForm();
+          let welcome = document.createElement("h1");
+          welcome.setAttribute("id", "welcome-message");
+          welcome.innerHTML = "Welcome: " + firstname + " ";
+          let logoutLink = document.createElement("a");
+          logoutLink.innerHTML = "(logout)";
+          logoutLink.style.fontWeight = "normal";
+          logoutLink.style.fontStyle = "italic";
+          logoutLink.style.fontSize = "20px";
+          logoutLink.setAttribute("onclick", "deleteCookiesAndShowForm()");
+          welcome.append(logoutLink);
+          document.body.append(welcome);
+        }
+      };
+    </script>
+  </head>
+  <body>
+    <div id="login-form">
+      <h2>Login to the website</h2>
+      <input type="text" id="firstname" placeholder="Firstname" />
+      <input type="text" id="email" placeholder="Email" />
+      <button type="button" onclick="setCookiesAndShowWelcomeMessage()">
+        Log me in
+      </button>
+    </div>
+  </body>
+  <script>
+    showWelcomeMessageOrForm();
+  </script>
+</html>

@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html lang="en" dir="ltr">
+  <head>
+    <meta charset="utf-8" />
+    <title>Task 6</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <script src="src/index.js"></script>
+    <script>
+      let availableItems = ["Shampoo", "Soap", "Sponge", "Water"];
+      if (window.sessionStorage) {
+        document.addEventListener("DOMContentLoaded", () => {
+          createStore();
+          displayCart();
+        });
+      } else {
+        alert(
+          "Sorry, your browser does not support Web storage. Try again with a better one"
+        );
+      }
+      const addItemToCart = (item) => sessionStorage.setItem(item, "true");
+      const createStore = () => {
+        let itemList = document.createElement("ul");
+        availableItems.forEach((item) => {
+          let listItem = document.createElement("li");
+          listItem.innerHTML = item;
+          listItem.onclick = () => addItemToCart(item);
+          itemList.append(listItem);
+        });
+        document.body.append(itemList);
+      };
+      const displayCart = () => {
+        if (window.sessionStorage.length > 0) {
+          let cartStatus = document.createElement("p");
+          cartStatus.innerHTML =
+            "You previously had " +
+            window.sessionStorage.length +
+            " items in your cart";
+          document.body.append(cartStatus);
+        }
+      };
+    </script>
+  </head>
+  <body></body>
+</html>
